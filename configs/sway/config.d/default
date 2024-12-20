@@ -2,7 +2,7 @@
 set $mod Mod4
 
 # set terminal and menu
-set $term tilix
+set $term alacritty
 set $menu rofi -show drun -modi drun -line-padding 4 -hide-scrollbar -show-icons
 
 # wallpaper
@@ -10,25 +10,15 @@ set $menu rofi -show drun -modi drun -line-padding 4 -hide-scrollbar -show-icons
 output * background ~/.config/backgrounds/wallhaven-zyj28v_3440x1440.png fill
 
 # shortcuts
-bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec kitty
+bindsym $mod+t exec $term
 bindsym $mod+Space exec $menu
 bindsym $mod+n exec swaync-client -t -sw
-bindsym $mod+f exec thunar
 bindsym $mod+b exec firefox-esr
 bindsym $mod+Shift+b exec firefox-esr -private-window
-bindsym $mod+e exec geany
-bindsym $mod+g exec swaymsg "workspace 8; exec gimp"
-bindsym $mod+d exec swaymsg "workspace 9; exec Discord"
-bindsym $mod+o exec swaymsg "workspace 10; exec obs"
-bindsym $mod+r exec tilix -e ranger
-# bindsym $mod+v exec tilix -e nvim
-bindsym $mod+h exec tilix -e ~/.config/sway/keyhelper.sh
 
 # rules
 for_window [app_id="pavucontrol"] floating enable
 for_window [app_id="galculator"] floating enable
-for_window [app_id="kitty"] floating enable, resize set 1280 720
 for_window [app_id="nwg-look"] floating enable
 for_window [app_id="mpv"] floating enable, resize set 1280 720
 for_window [app_id="qimgv"] floating enable, resize set 1280 720
@@ -57,7 +47,7 @@ bindsym $mod+Ctrl+Right resize grow width 20px
 # audio
 bindsym $mod+Insert exec ~/scripts/changevolume up
 bindsym $mod+Delete exec ~/scripts/changevolume down
-bindsym $mod+m exec ~/scripts/changevolume mute
+bindsym $mod+m exec ~/scripts/i mute
 
 #
 # Workspaces:
@@ -84,20 +74,21 @@ bindsym $mod+m exec ~/scripts/changevolume mute
     bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
-    # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
 #
+# Note: workspaces can have any name you want, not just numbers.
+# We just use 1-10 as the default.
 #
+
 # Screen Capture
 bindsym Print exec grim ~/Screenshots/$(date +"%Y-%m-%d_%H-%M-%S").png; exec notify-send 'Grim' 'Image saved to ~/Screenshots'
 bindsym $mod+Print exec grim -g "$(slurp)" ~/Screenshots/$(date +"%Y-%m-%d_%H-%M-%S").png; exec notify-send 'Grim' 'Selected image saved to ~/Screenshots'
 
-### Gaps
+# Gaps
 gaps inner 16
 gaps outer 1
 default_border pixel 3
 
-### Borders
+# Borders
 client.focused          #bd93f9 #bd93f9 #282a36 #bd93f9 #bd93f9
 client.focused_inactive #282a36 #282a36 #bd93f9 #282a36 #282a36
 client.unfocused        #282a36 #282a36 #bd93f9 #282a36 #282a36
@@ -105,8 +96,10 @@ client.urgent           #ff5555 #ff5555 #282a36 #ff5555 #ff5555
 client.placeholder      #282a36 #282a36 #bd93f9 #282a36 #282a36
 client.background       #282a36
 
-bar { 
-     swaybar_command waybar
-     }
-#GTK issue
+# Bar
+bar {
+    swaybar_command waybar
+}
+
+# GTK issue
 exec dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
