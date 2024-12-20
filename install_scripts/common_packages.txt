@@ -15,9 +15,7 @@ gettext
 git
 grim
 gvfs-backends
-libnotify-bin
-libnotify-dev
-light
+brightnessctl
 mtools
 network-manager
 network-manager-gnome
